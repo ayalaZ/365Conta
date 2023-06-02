@@ -114,17 +114,22 @@
               </div>
               <!-- /Logo -->
               <h4 class="mb-2">Bienvenido! 👋</h4>
-              <form id="formAuthentication" class="mb-3" action="index.html" method="POST">
+              <form id="formAuthentication" class="mb-3" action="{{ route('login') }}" method="POST">
+              @csrf
                 <div class="mb-3">
                   <label for="email" class="form-label">Email or nickname</label>
                   <input
                     type="text"
                     class="form-control"
                     id="email"
-                    name="email-username"
+                    name="email"
                     placeholder="Enter your email or username"
                     autofocus
                   />
+
+                  @if ($errors->has('email'))
+                  <span class="text-danger">{{ $errors->first('email') }}</span>
+                  @endif
                 </div>
                 <div class="mb-3 form-password-toggle">
                   <div class="d-flex justify-content-between">
@@ -142,6 +147,9 @@
                       placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
                       aria-describedby="password"
                     />
+                      @if ($errors->has('password'))
+                      <span class="text-danger">{{ $errors->first('password') }}</span>
+                      @endif
                     <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                   </div>
                 </div>
@@ -154,6 +162,9 @@
                 <div class="mb-3">
                   <button class="btn btn-primary d-grid w-100" type="submit">Iniciar sesion</button>
                 </div>
+                @if(session('success'))
+                  <h5>{{session('success')}}</h5>
+                @endif 
               </form>
             </div>
           </div>
